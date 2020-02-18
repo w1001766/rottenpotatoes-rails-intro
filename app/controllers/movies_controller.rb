@@ -10,26 +10,8 @@ class MoviesController < ApplicationController
     redirect = false
     ratings = params[:ratings]
     logger.debug 'Ratings from request: ' + ratings.to_s
-
-    #filter box session
-    if ratings != nil && !ratings.keys.empty?
-      session[:filtering] = ratings
-      ratings = ratings.keys
-    elsif session[:filtering] != nil
-      redirect = true
-    else
-      session[:filtering] = Movie.all_ratings
-      ratings = session[:filtering]
-    end
     
-    
-    # sort session
-    sort = params[:sort] != nil ? params[:sort].to_sym : nil
-    if sort == :title || sort == :release_date
-      session[:sorted] = sort
-    elsif session[:sorted] != nil
-      redirect = true
-    end
+   
     
     
     #redirect
