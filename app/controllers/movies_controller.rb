@@ -13,13 +13,13 @@ class MoviesController < ApplicationController
 
     #filter box session
     if ratings != nil && !ratings.keys.empty?
-      session[:filtered_ratings] = ratings
+      session[:filtering] = ratings
       ratings = ratings.keys
-    elsif session[:filtered_ratings] != nil
+    elsif session[:filtering] != nil
       redirect = true
     else
-      session[:filtered_ratings] = Movie.all_ratings
-      ratings = session[:filtered_ratings]
+      session[:filtering] = Movie.all_ratings
+      ratings = session[:filtering]
     end
     
     
@@ -31,6 +31,8 @@ class MoviesController < ApplicationController
       redirect = true
     end
     
+    
+    #redirect
     if redirect == true
       flash.keep
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
