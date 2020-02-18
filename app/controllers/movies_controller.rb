@@ -10,6 +10,18 @@ class MoviesController < ApplicationController
     redirect = false
     ratings = params[:ratings]
 
+
+  @checked_ratings = checked_boxes
+    @checked_ratings.each do |rating|
+      params[rating] = true
+    end
+    
+    if params[:sort]
+      @movies = Movie.order(params[:sort])
+    else
+      @movies = Movie.where(:rating => @checked_ratings)
+    end
+
     #filter box session
     if ratings != nil && !ratings.keys.empty?
       session[:filtered_ratings] = ratings
@@ -36,16 +48,7 @@ class MoviesController < ApplicationController
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
 
-    @checked_ratings = checked_boxes
-    @checked_ratings.each do |rating|
-      params[rating] = true
-    end
     
-    if params[:sort]
-      @movies = Movie.order(params[:sort])
-    else
-      @movies = Movie.where(:rating => @checked_ratings)
-    end
     
    
   end
