@@ -7,9 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    redirect_sort = false
-    redirect_rate = false
-
+    redirect = false
     ratings = params[:ratings]
     ##########Begin part 3#####
     
@@ -18,29 +16,26 @@ class MoviesController < ApplicationController
       session[:filtered_ratings] = ratings
       ratings = ratings.keys
     elsif session[:filtered_ratings] != nil
-      redirect_rate = true
+      redirect = true
     else
       session[:filtered_ratings] = Movie.all_ratings
       ratings = session[:filtered_ratings]
-      redirect_rate = false
+      redirect = false
+    end
+      #sort session
+    if redirect ==false
+      sort = params[:sort] != nil ? params[:sort].to_sym : nil
+      if sort == :title || sort == :release_date
+        session[:sorted] = sort
+      elsif session[:sorted] != nil
+        redirect = true
+      else
+        redirect = false
+      end
     end
     
-    if redirect_rate == true
-      redirect_to movies_path(ratings: session[:filtered_ratings])
-    end
-      
-    #sort session
-    sort = params[:sort] != nil ? params[:sort].to_sym : nil
-    if sort == :title || sort == :release_date
-      session[:sorted] = sort
-    elsif session[:sorted] != nil
-      redirect_sort = true
-    else
-      redirect_sort = false
-    end
-
-    if redirect_sort == true
-      redirect_to movies_path(sort: session[:sorted])
+    if redirect == true
+      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
     ##########End part3############
     
