@@ -17,7 +17,6 @@ class MoviesController < ApplicationController
       ratings = ratings.keys
     elsif session[:filtered_ratings] != nil
        redirect = true
-       redirect_to movie_path(ratings: session[:filtered_ratings])
     end
     
     if redirect == false
