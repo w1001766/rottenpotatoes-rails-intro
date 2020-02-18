@@ -15,9 +15,7 @@ class MoviesController < ApplicationController
       ratings = ratings.keys
     elsif session[:filtered] != nil
       redirect = true
-    else
-      session[:filtered] = Movie.all_ratings
-      ratings = session[:filtered]
+    
     end
     
     
@@ -44,7 +42,6 @@ private
 
   def checked_boxes
     @all_ratings = Movie.order(:rating).select(:rating).map(&:rating).uniq
-
     if params[:ratings]
       params[:ratings].keys
     else
