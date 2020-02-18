@@ -22,9 +22,17 @@ class MoviesController < ApplicationController
       ratings = session[:filtered_ratings]
     end
     
-   
+    
+    # sort session
+    sort = params[:sort] != nil ? params[:sort].to_sym : nil
+    if sort == :title || sort == :release_date
+      session[:sorted] = sort
+    elsif session[:sorted] != nil
+      redirect = true
+    end
     
     if redirect == true
+      flash.keep
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
 
