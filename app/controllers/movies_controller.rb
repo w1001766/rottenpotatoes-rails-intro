@@ -24,7 +24,7 @@ class MoviesController < ApplicationController
       redirect = true
     else
       session[:filtered] = Movie.all_ratings
-      ratings = session[:filtered_ratings]
+      ratings = session[:filtered]
     end
 
     # check criterias
