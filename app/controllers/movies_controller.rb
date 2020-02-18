@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
     ratings = params[:ratings]
     ##########Begin part 3#####
     if ratings != nil? && !ratings.keys.empty?
-      session[:filtered] = ratings
+      session[:filtered_ratings] = ratings
       ratings = ratings.keys
    
     
