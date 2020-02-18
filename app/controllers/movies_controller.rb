@@ -29,6 +29,7 @@ class MoviesController < ApplicationController
         session[:sorted] = sort
       elsif session[:sorted] != nil
         redirect = true
+        redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
       else
         redirect = false
       end
