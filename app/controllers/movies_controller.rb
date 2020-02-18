@@ -7,11 +7,24 @@ class MoviesController < ApplicationController
   end
 
   def index
-    redirect = true
+    redirect = false
+    ratings = params[:ratings]
+
+    
     
     @checked_ratings = checked_boxes
     @checked_ratings.each do |rating|
       params[rating] = true
+    end
+
+    if ratings!=nil && !ratings.key.empty?
+      session[params[:ratings]] = ratings
+      ratings = ratings.keys
+    elsif session[:params[:ratings]] != nil
+      redirect = true
+    else
+      session[:params[:ratings]] = Movie.all_ratings
+      ratings = session[:params[:ratings]]
     end
 
     if params[:sort]
