@@ -9,16 +9,8 @@ class MoviesController < ApplicationController
   def index
     redirect = false
     ratings = params[:ratings]
-    logger.debug 'Ratings from request: ' + ratings.to_s
-    
+
    
-    
-    
-    #redirect
-    if redirect == true
-      flash.keep
-      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
-    end
 
     @checked_ratings = checked_boxes
     @checked_ratings.each do |rating|
