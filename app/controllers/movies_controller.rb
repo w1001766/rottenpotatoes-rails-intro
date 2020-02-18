@@ -22,18 +22,16 @@ class MoviesController < ApplicationController
       ratings = session[:filtered_ratings]
       redirect = false
     end
-      #sort session
-    if redirect ==false
-      sort = params[:sort] != nil ? params[:sort].to_sym : nil
-      if sort == :title || sort == :release_date
-        session[:sorted] = sort
-      elsif session[:sorted] != nil
-        redirect = true
-      else
-        redirect = false
-      end
+    #sort session
+    sort = params[:sort] != nil ? params[:sort].to_sym : nil
+    if sort == :title || sort == :release_date
+      session[:sorted] = sort
+    elsif session[:sorted] != nil
+      redirect = true
+    else
+      redirect = false
     end
-    
+
     if redirect == true
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
