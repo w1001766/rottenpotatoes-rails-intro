@@ -16,9 +16,16 @@ class MoviesController < ApplicationController
     @checked_ratings.each do |rating|
       params[rating] = true
     end
-    
+    if ratings != nil?
+      session[:filtered] = ratings
+      ratings = ratings.keys
+    elsif session[:filtered] != nil
+      redirect = true
+    else
    
-    
+    if redirect == true
+      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
+    end
     
     if params[:sort]
       @movies = Movie.order(params[:sort])
