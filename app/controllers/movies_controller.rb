@@ -18,15 +18,7 @@ class MoviesController < ApplicationController
     end
    
    
-    if ratings!=nil && !ratings.key.empty?
-      session[params[:ratings]] = ratings
-      ratings = ratings.keys
-    elsif session[params[:ratings]] != nil
-      redirect = true
-    else
-      session[params[:ratings]] = Movie.all_ratings
-      ratings = session[params[:ratings]]
-    end
+    
 
   
     if params[:sort]
