@@ -22,7 +22,11 @@ class MoviesController < ApplicationController
     elsif session[:filtered] != nil
       redirect = true
     else
-   
+      session[:filtered] = Movie.all_ratings
+      ratings = session[:filtered]
+    end
+    
+    
     sort = params[:sort] != nil ? params[:sort].to_sym : nil
     if sort == :title || sort == :release_date
       session[:sorted] = sort
