@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
   def index
     redirect = false
     ratings = params[:ratings]
+    @all_ratings = Movie.all_ratings
 
     if ratings != nil && !ratings.keys.empty?
       session[:filtered_ratings] = ratings
@@ -26,6 +27,7 @@ class MoviesController < ApplicationController
     elsif session[:sorted] != nil
       redirect = true
     end
+    
     if redirect == true
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
