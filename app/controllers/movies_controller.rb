@@ -7,9 +7,11 @@ class MoviesController < ApplicationController
   end
 
   def index
-    redirect = false
-    ratings = params[:ratings]
+   redirect = false
 
+    # handle user session for filtes
+    ratings = params[:ratings]
+    logger.debug 'Ratings from request: ' + ratings.to_s
     if ratings != nil && !ratings.keys.empty?
       session[:filtered_ratings] = ratings
       ratings = ratings.keys
@@ -19,6 +21,7 @@ class MoviesController < ApplicationController
       session[:filtered_ratings] = Movie.all_ratings
       ratings = session[:filtered_ratings]
     end
+
     # check criterias
     sort = params[:sort] != nil ? params[:sort].to_sym : nil
     if sort == :title || sort == :release_date
@@ -26,24 +29,19 @@ class MoviesController < ApplicationController
     elsif session[:sorted] != nil
       redirect = true
     end
-    
-    
+
     if redirect == true
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
-    
-    
-    @checked_ratings = checked_boxes
-    @checked_ratings.each do |rating|
-      params[rating] = true
-    end
-    
-    if params[:sort]
-      @movies = Movie.order(params[:sort])
+
+    # do search
+    logger.debug 'Ratings => ' + ratings.to_s
+    logger.debug 'Sort => ' + sort.to_s
+    if sort != nil
+      @movies = Movie.where(rating: ratings).order(sort)
     else
-      @movies = Movie.where(:rating => @checked_ratings)
+      @movies = Movie.where(rating: ratings)
     end
-    
    
   end
 private
