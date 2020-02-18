@@ -22,9 +22,7 @@ class MoviesController < ApplicationController
     elsif session[:sorted] != nil
       redirect = true
       redirect_sort = true
-
-    else
-      redirect = false
+    
     end
     
      #rating session
