@@ -11,6 +11,31 @@ class MoviesController < ApplicationController
     ratings = params[:ratings]
 
    
+     #filter box session
+    if ratings != nil && !ratings.keys.empty?
+      session[:filtering] = ratings
+      ratings = ratings.keys
+    elsif session[:filtering] != nil
+      redirect = true
+    else
+      session[:filtering] = Movie.all_ratings
+      ratings = session[:filtering]
+    end
+    
+    
+    # sort session
+    sort = params[:sort] != nil ? params[:sort].to_sym : nil
+    if sort == :title || sort == :release_date
+      session[:sorted] = sort
+    elsif session[:sorted] != nil
+      redirect = true
+    end
+    
+    #redirect
+    if redirect == true
+      flash.keep
+      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
+    end
 
     @checked_ratings = checked_boxes
     @checked_ratings.each do |rating|
