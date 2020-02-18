@@ -10,11 +10,15 @@ class MoviesController < ApplicationController
     redirect = false
     ratings = params[:ratings]
     ##########Begin part 3#####
-    
-    
+    if ratings != nil
+      session[:filtered_ratings] = ratings
+      redirect = true
+    end
     
    
-    
+    if redirect == true
+      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
+    end
 
    
     ##########End part3############
