@@ -13,22 +13,7 @@ class MoviesController < ApplicationController
    
 
    
-    if ratings != nil?
-      session[:filtered] = ratings
-      ratings = ratings.keys
-    elsif session[:filtered] != nil
-      redirect = true
-    else
-      session[:filtered] = Movie.all_ratings
-      ratings = session[:filtered]
-    end
-    
-    
-    
    
-    if redirect == true
-      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered])
-    end
     
     @checked_ratings = checked_boxes
     @checked_ratings.each do |rating|
