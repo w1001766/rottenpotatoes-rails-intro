@@ -9,7 +9,6 @@ class MoviesController < ApplicationController
   def index
     redirect = false
     ratings = params[:ratings]
-    @all_ratings = Movie.all_ratings
 
     if ratings != nil && !ratings.keys.empty?
       session[:filtered_ratings] = ratings
