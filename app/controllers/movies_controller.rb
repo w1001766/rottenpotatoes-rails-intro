@@ -22,7 +22,8 @@ class MoviesController < ApplicationController
       ratings = ratings.keys
     elsif session[params[:ratings]] != nil
       redirect = true
-    
+    else
+      session[params[:ratings]] = Movie.all_ratings
     end
     
 
