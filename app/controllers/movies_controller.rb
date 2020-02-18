@@ -13,7 +13,9 @@ class MoviesController < ApplicationController
     if ratings != nil && !ratings.keys.empty?
       session[:filtered_ratings] = ratings
       ratings = ratings.keys
-   
+    elsif session[:filtered_ratings] != nil
+      redirect = true
+      
     end
     
     @checked_ratings = checked_boxes
