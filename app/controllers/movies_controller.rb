@@ -30,18 +30,20 @@ class MoviesController < ApplicationController
      #rating session
     if ratings != nil && !ratings.keys.empty?
       session.clear
-      session[:filtered_ratings] = ratings
+      session[:rating] = ratings
       ratings = ratings.keys
     
-      
-    elsif session[:filtered_ratings] != nil
+  
+    elsif session[:rating] != nil
        redirect = true
+    else
+      redirect = false
     end
     
     
 
     if redirect == true
-      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
+      redirect_to movies_path(sort: session[:sorted], ratings: session[:rating])
     end
     
     ##########End part3############
