@@ -10,8 +10,9 @@ class MoviesController < ApplicationController
     redirect = false
     ratings = params[:ratings]
     ##########Begin part 3#####
-    if ratings != nil
+    if ratings != nil && !ratings.keys.empty?
       session[:filtered_ratings] = ratings
+      ratings = ratings.keys
       redirect_to movies_path(ratings: session[:filtered_ratings])
     end
     
