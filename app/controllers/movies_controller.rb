@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
     end
     
      #rating session
-    if ratings != nil
+    if ratings != nil && !ratings.keys.empty?
       session.clear
       session[:rating] = ratings
       ratings = ratings.keys
