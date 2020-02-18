@@ -13,7 +13,6 @@ class MoviesController < ApplicationController
     
     #rating session
     if ratings != nil && !ratings.keys.empty?
-      session.clear
       session[:filtered_ratings] = ratings
       ratings = ratings.keys
       
