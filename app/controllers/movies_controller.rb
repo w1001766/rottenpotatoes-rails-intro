@@ -13,8 +13,7 @@ class MoviesController < ApplicationController
     if ratings != nil? && !ratings.keys.empty?
       session[:filtered] = ratings
       ratings = ratings.keys
-    elsif session[:filtered] != nil
-      redirect = true
+   
     
     end
     
