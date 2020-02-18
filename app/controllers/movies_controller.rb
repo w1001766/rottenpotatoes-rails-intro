@@ -20,7 +20,10 @@ class MoviesController < ApplicationController
       session[:sorted] = sort
     elsif session[:sorted] != nil
       redirect = true
+    else
+      session[:filtered_ratings] = Movie.all_ratings
     end
+    
     
     #filter box session
     if ratings != nil && !ratings.keys.empty?
