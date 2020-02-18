@@ -34,13 +34,16 @@ class MoviesController < ApplicationController
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
     
-     # do search
-    logger.debug 'Ratings => ' + ratings.to_s
-    logger.debug 'Sort => ' + sort.to_s
-    if sort != nil
-      @movies = Movie.where(rating: ratings).order(sort)
+    
+    @checked_ratings = checked_boxes
+    @checked_ratings.each do |rating|
+      params[rating] = true
+    end
+    
+    if sort
+      @movies = Movie.order(params[:sort])
     else
-      @movies = Movie.where(rating: ratings)
+      @movies = Movie.where(:rating => @checked_ratings)
     end
     
    
