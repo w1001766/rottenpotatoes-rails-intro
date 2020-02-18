@@ -8,6 +8,8 @@ class MoviesController < ApplicationController
 
   def index
     redirect = false
+    redirect_sort = false
+    redirect_filter = false
     ratings = params[:ratings]
     ##########Begin part 3#####
     
@@ -18,6 +20,8 @@ class MoviesController < ApplicationController
       session[:sorted] = sort
     elsif session[:sorted] != nil
       redirect = true
+      redirect_sort = true
+
     else
       redirect = false
     end
@@ -27,6 +31,8 @@ class MoviesController < ApplicationController
       session.clear
       session[:filtered_ratings] = ratings
       ratings = ratings.keys
+    elsif ratings ==nil && redirect_sort == false
+      ratings = Movie.all_ratings
       
     elsif session[:filtered_ratings] != nil
        redirect = true
