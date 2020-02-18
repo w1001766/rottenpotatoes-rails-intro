@@ -19,7 +19,15 @@ class MoviesController < ApplicationController
       @movies = Movie.where(:rating => @checked_ratings)
     end
   end
+private
 
+  def check
+    if params[:ratings]
+      params[:ratings].keys
+    else
+      @all_ratings
+    end
+  end
   def new
     # default: render 'new' template
   end
@@ -48,14 +56,6 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
-  private
-
-  def check
-    if params[:ratings]
-      params[:ratings].keys
-    else
-      @all_ratings
-    end
-  end
+  
 
 end
