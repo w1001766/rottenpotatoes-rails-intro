@@ -13,14 +13,16 @@ class MoviesController < ApplicationController
     if ratings != nil && !ratings.keys.empty?
       session[:filtered_ratings] = ratings
       ratings = ratings.keys
-      redirect_to movies_path(ratings: session[:filtered_ratings])
     end
-    sort = params[:sort] != nil ? params[:sort].to_sym : nil
     
+    
+    sort = params[:sort] != nil ? params[:sort].to_sym : nil
     if sort == :title || sort == :release_date
       session[:sorted] = sort
-      redirect_to movies_path(sort: session[:sorted])
     end
+    
+    
+    redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
 
    
     ##########End part3############
