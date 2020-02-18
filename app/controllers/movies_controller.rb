@@ -22,10 +22,11 @@ private
 
   def checked_boxes
     @all_ratings = Movie.order(:rating).select(:rating).map(&:rating).uniq
-    if params[:ratings]
-      params[:ratings].keys
+    if params[:ratings].nil?
+       @all_ratings
+      
     else
-      @all_ratings
+      @params[:ratings].keys
     end
   end
   def new
