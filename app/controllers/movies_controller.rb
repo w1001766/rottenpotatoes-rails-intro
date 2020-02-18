@@ -30,11 +30,11 @@ class MoviesController < ApplicationController
       else
         redirect = false
       end
-      
-      if redirect == true
-        redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
-      end
+    end  
+    if redirect == true
+      redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
+    
     ##########End part3############
     
     @checked_ratings = checked_boxes
