@@ -35,8 +35,8 @@ class MoviesController < ApplicationController
     if redirect == true
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
-    reset_session 
-    
+    [:sorted, :filtered_ratings].each { |k| session.delete(k) }
+
     @checked_ratings = checked_boxes
     @checked_ratings.each do |rating|
       params[rating] = true
