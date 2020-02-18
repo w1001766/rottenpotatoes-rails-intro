@@ -32,7 +32,7 @@ class MoviesController < ApplicationController
       session[:filtered_ratings] = ratings
       ratings = ratings.keys
     elsif ratings ==nil && redirect_sort == false
-      ratings = Movie.all_ratings
+      session[:filtered_ratings] = Movie.all_ratings
       
     elsif session[:filtered_ratings] != nil
        redirect = true
