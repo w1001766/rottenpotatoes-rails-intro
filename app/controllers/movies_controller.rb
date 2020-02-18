@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     redirect = false
     ratings = params[:ratings]
 
-   
+    
     if redirect == true
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
       params[rating] = true
     end
     
-    if sort
+    if params[:sort]
       @movies = Movie.order(params[:sort])
     else
       @movies = Movie.where(:rating => @checked_ratings)
