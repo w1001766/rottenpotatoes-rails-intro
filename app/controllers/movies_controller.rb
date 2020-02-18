@@ -11,14 +11,14 @@ class MoviesController < ApplicationController
     redirect_sort = false
     redirect_filter = false
     ratings = params[:ratings]
+    sort = params[:sort] != nil ? params[:sort].to_sym : nil
+
     ##########Begin part 3#####
     
     #sort session
-    sort = params[:sort] != nil ? params[:sort].to_sym : nil
     if sort == :title || sort == :release_date
       #session.clear
       session[:sorted] = sort
-      ratings = nil
     elsif session[:sorted] != nil
       redirect = true
       redirect_sort = true
