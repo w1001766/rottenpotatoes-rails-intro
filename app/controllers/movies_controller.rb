@@ -10,16 +10,11 @@ class MoviesController < ApplicationController
     redirect = false
     ratings = params[:ratings]
     ##########Begin part 3#####
-    if ratings != nil && !ratings.keys.empty?
-      session[:filtered_ratings] = ratings
-      ratings = ratings.keys
-    elsif session[:filtered_ratings] != nil
-      redirect = true
-    else
-      session[:filtered_ratings] = Movie.all_ratings
-      ratings = session[:filtered_ratings]
-    end
     
+    #rating session
+    
+    
+    #sort session
     sort = params[:sort] != nil ? params[:sort].to_sym : nil
     if sort == :title || sort == :release_date
       session[:sorted] = sort
@@ -30,8 +25,6 @@ class MoviesController < ApplicationController
     if redirect == true
       redirect_to movies_path(sort: session[:sorted], ratings: session[:filtered_ratings])
     end
-    
-   
     ##########End part3############
     
     @checked_ratings = checked_boxes
