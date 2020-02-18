@@ -7,6 +7,8 @@ class MoviesController < ApplicationController
   end
 
   def index
+    redirect = true
+    
     @checked_ratings = checked_boxes
     @checked_ratings.each do |rating|
       params[rating] = true
