@@ -25,18 +25,19 @@ class MoviesController < ApplicationController
     
     end
     
-     #rating session
-    if ratings != nil && !ratings.keys.empty?
-      session.clear
-      session[:rating] = ratings
-      ratings = ratings.keys
-    elsif session[:rating] != nil
-       redirect = true
-    else
-      redirect = false
+    if redirect_sort == false 
+       #rating session
+      if ratings != nil && !ratings.keys.empty?
+        session.clear
+        session[:rating] = ratings
+        ratings = ratings.keys
+      elsif session[:rating] != nil
+         redirect = true
+      else
+        redirect = false
+      end
+    
     end
-    
-    
 
     if redirect == true
       redirect_to movies_path(sort: session[:sorted], ratings: session[:rating])
