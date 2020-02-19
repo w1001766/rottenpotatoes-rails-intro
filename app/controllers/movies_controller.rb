@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
     ratings = params[:ratings]
     sort = params[:sort] != nil ? params[:sort].to_sym : nil
 
-    ##########Begin part 3#####
+    ########## Begin part 3 #####
     
     #sort session
     if sort == :title || sort == :release_date
@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
     
    
       
-    if redirect_sort == false 
+    if redirect_sort == false
        #rating session
       if ratings != nil && !ratings.keys.empty?
         session.clear
@@ -55,7 +55,11 @@ class MoviesController < ApplicationController
     end
     
     if params[:sort]
-      @movies = Movie.order(params[:sort])
+      if params[:ratings]
+        @movies = Movie.where(:rating => @checked_ratings).order(params[:sort])
+      else
+        @movies = Movie.order(params[:sort])
+      end
     else
       @movies = Movie.where(:rating => @checked_ratings)
     end
