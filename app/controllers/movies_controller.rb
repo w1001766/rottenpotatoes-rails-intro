@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     
     #sort session
     if sort == :title || sort == :release_date
-      session.clear
+      #session.clear
       session[:sorted] = sort
     elsif session[:sorted] != nil
       redirect = true
@@ -33,7 +33,7 @@ class MoviesController < ApplicationController
     if redirect_sort == false
        #rating session
       if ratings != nil && !ratings.keys.empty?
-        session.clear
+        #session.clear
         session[:rating] = ratings
         ratings = ratings.keys
       elsif session[:rating] != nil
